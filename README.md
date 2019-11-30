@@ -2,7 +2,7 @@
   <img src="0 Assets/MeanderingRiver_teaser_noText01.jpg">
 </p>
 
-# WS 2019 / Creative Coding
+# Creative Coding
 WS 2019 Creative Coding at HS Magdeburg
 
 ## Struktur
@@ -11,6 +11,6 @@ WS 2019 Creative Coding at HS Magdeburg
   * VL_
     * Code
 * 2 Abgaben Studierende
-  * ↪ Name
+  * Name
       * A_
 
