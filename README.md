@@ -7,11 +7,10 @@ WS 2019 Creative Coding at HS Magdeburg
 
 ## Struktur
 * 1 Vorlesungen
-  * ↪ Protokolle
-  * ↪	VL_
-    * ↪ Code
+  * Protokolle
+  * VL_
+    * Code
 * 2 Abgaben Studierende
   * ↪ Name
-      * ↪ A_
-## About
-Ich fülle dieses Repository demnächst noch weiter auf.
+      * A_
+
