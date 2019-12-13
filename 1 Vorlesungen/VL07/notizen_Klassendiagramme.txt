@@ -1,0 +1,40 @@
+klassendiagramme brauchen wir um programmstrukturen abzubilden und es ist völlig unabhängig von der Programmiersprache und kann in einer beliebigen OOP sprache umgesetzt werden
+der sinn ist, dass wir uns eine klasse modellieren "wie könnte sie funktionieren? was brauche ich alles?". dieses modell kann dann weitergegeben werden oder benutzt werden um die struktur zu kommunizieren.
+
+ich könnte sagen "schreibt mir eine klasse Auto und in der Klasse soll die Position als ganze Zahl stehen. Außerdem soll die Marke des Autos in der Klasse erwähnt werden".
+
+anstatt jetzt 3 seiten text zu schreiben, wie das aussehen solll.
+Unified Modelling Language
+
+aufbau der felder:
+
+1. Name der Klasse
+2. Attribute
+3. Methoden
+
+violet uml editor
+
+2. Attribute /Aufbau
+=> Zugriffsmodifikator
+- private
++ public
+~ oder # (raute) protected
+
+Zugriffsmodifikator Name des Attributs : Datentyp
+oder bei Bedarf:
+Zugriffsmodifikator Name des Attributs : Datentyp = Initialwert
+
+in java / processing ist unsere syntax andersrum. wir schreiben:
+Zugriffsmodifikator Datentyp Name des Attributs
+
+
+3. Methoden / Aufbau
+=> Zugriffsmodifikator
+Name der Methode
+Paramaterklammern bzw. Liste
+falls liste niht leer: Name des Parameters : Datentyp
+
+Rückgabewert
+eigentlich wenn void, wird weggelassen
+
+Methode die Großgeschrieben wird wie der Klassenname, ist der Konstruktor – kein Rückgabetyp
