@@ -1,0 +1,3 @@
+Jedes Audio erzeugt einen Effekt wie in 'prob'.
+Die Audiowiedergabe wird über Arduino gesteuert.
+Je mehr Audio abgespielt wird, desto chaotischer wird das Bild.
