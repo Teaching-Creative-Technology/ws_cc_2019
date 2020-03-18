@@ -10,7 +10,7 @@ class WordProcessor():
 
     Now all words that can be build from a collection of characters can easily be detected
 
-
+Proc
     """
     def __init__(self, word_length=8):
         self.n_character_word_list = []
@@ -30,16 +30,21 @@ class WordProcessor():
         index = ''.join(sorted(word))
         return index
 
+    # Dictionary is scanned, index list for all words with n characters are created
     def sort_words_into_index(self):
         for word in self.n_character_word_list:
             index = self.create_word_index(word.lower())
+            # Check if entries already exist for index, word is added to existing list
             if self.character_to_word_map.get(index):
                 self.character_to_word_map[index].append(word)
             else:
+            # No entries yet, new list is created, word is added to list
                 self.character_to_word_map[index] = []
                 self.character_to_word_map[index].append(word)
 
     def find_words_from_characters(self, characters):
-        index = ''.join(sorted(characters)).lower()
+        # index from random characters is created
+        index = self.create_word_index(characters)
+        # possible words are returned by accessing a dictionary via the index
         possible_words = self.character_to_word_map.get(index)
         return possible_words

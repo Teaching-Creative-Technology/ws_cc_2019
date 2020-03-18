@@ -7,7 +7,7 @@ class Carmen():
     def __init__(self):
         self.wordprocessor = word_processor.WordProcessor(5)
         self.randomizer = randomizer.Randomizer(5)
-        self.ascii = ascii.Ascii("big")
+        self.ascii = ascii.Ascii("shadow")
 
     def go(self):
         found_words = 0
