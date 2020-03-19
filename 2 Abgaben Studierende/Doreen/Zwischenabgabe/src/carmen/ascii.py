@@ -1,4 +1,3 @@
-import pyfiglet
 from pyfiglet import Figlet
         # self.font_list = ["big", "doom", "isometric1", "isometric3", "larry3d", "stop", "standard", "small", "shadow",
         #             "rectangles", "kban", "fender", "chunky", "block"]

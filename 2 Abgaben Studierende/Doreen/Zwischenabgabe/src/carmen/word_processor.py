@@ -10,7 +10,7 @@ class WordProcessor():
 
     Now all words that can be build from a collection of characters can easily be detected
 
-Proc
+
     """
     def __init__(self, word_length=8):
         self.n_character_word_list = []
