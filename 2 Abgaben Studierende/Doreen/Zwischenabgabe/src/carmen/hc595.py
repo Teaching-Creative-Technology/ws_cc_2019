@@ -3,6 +3,7 @@ import time
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
+# This class sets up and controls the HC595 components
 class HC595():
     def __init__(self, serial_in, latch_clock, shift_clock, output_enable, reset):
         self._serial_in = serial_in
@@ -63,41 +64,116 @@ class HC595():
         else:
             raise ValueError("bit must be either '0' or '1' ")
 
+# This class creates and transmits the bit patterns for the Shift Registers
+class ShiftRegister():
+    def __init__(self, serial_in, latch_clock, shift_clock, output_enable, reset, length):
+        self.hc595 = HC595(serial_in, latch_clock, shift_clock, output_enable, reset)
+        self.length = length
+        self.hc595.reset()
+        self.logical_register = ["00" for item in range(length/2)]
+        self.physical_register = ""
 
 
+        # length is the physical position of the bit in the shift chain
+        #             +-------------+      +-----------+            +-----------+
+        #             |             |      |           |            |           |
+        #             |    HC595    +------+   HC595   +-+ ++ ++ ++ |   HC595   |
+        #             |             |      |           |            |           |
+        #             +-+-+-+-+-+-+-+      +-----------+            +-----------+
+        #             + + + + + + + +
+        #
+        # Physical    0 1 2 3 4 5 6 7
+        # Physical Position is a single bit in the shift register that can be on or occ
+        #
+        #
+        # Logical      0   1   2   3
+        # Logical Position is a letter, a letter can have 3 states (blue, white or off),
+        # the state is mapped to a pair of two physical bits
 
-    def load_shift_reg(self, data):
-        pass
 
+        if length > 120:
+            raise ValueError("Maximum register legth exceeded")
+
+    def map_state_to_bit_pattern(self, state):
+        # value is either blue, white or off
+        if state not in ["blue", "white", "off"]:
+            raise ValueError("Invalid value for state")
+
+        # Logical position has to be smaller than half the shift register size
+        #if logical_position > self.length/2 - 1:
+        #    raise ValueError("Invalid value for logical position")
+
+        # the three possible states are mapped to the bit pattern they can be accessed with
+        bit_pattern = "00"
+
+        if state == "blue":
+            bit_pattern = "10"
+
+        elif state == "white":
+            bit_pattern = "01"
+
+        elif state == "off":
+            bit_pattern = "00"
+
+        return bit_pattern
+
+    # Function to set a state at a logical position
+    def set_logical_position_to_value(self, logical_position, state):
+        self.logical_register[logical_position] = self.map_state_to_bit_pattern(state)
+
+    # Function that creates a string of the sequence of bits that resemble the physical shift register
+    def map_logical_register_to_physical_bits(self):
+        self.physical_register = "" .join(self.logical_register)
+        print(self.physical_register)
+
+    # Function to reverse the phsyical bits, so they can be loaded into the shift register
+    def load_physical_bits_into_shift_register(self):
+        print("".join(reversed(self.physical_register)))
+        for bit in reversed(self.physical_register):
+            self.hc595.load_bit(bit)
+
+    # Function to load bit string into shift register
+    def load_logical_values_into_shift_register(self):
+        self.map_logical_register_to_physical_bits()
+        self.load_physical_bits_into_shift_register()
+        self.hc595.latch()
+        time.sleep(10)
+        self.hc595.reset()
 
 def main():
-    hc595 = HC595(serial_in=5, latch_clock=6, shift_clock=13, output_enable=19, reset=26)
-    hc595.reset()
-    hc595.enable_output()
+    shift_reg = ShiftRegister(serial_in=5, latch_clock=6, shift_clock=13, output_enable=19, reset=26, length = 32)
+    shift_reg.set_logical_position_to_value(0, "blue")
+    shift_reg.set_logical_position_to_value(1, "white")
+    shift_reg.set_logical_position_to_value(2, "off")
+    shift_reg.set_logical_position_to_value(3, "blue")
+
+    shift_reg.load_logical_values_into_shift_register()
 
 
+    #
+    # hc595.load_bit("0")
+    # hc595.load_bit("1")
+    # hc595.load_bit("0")
+    # hc595.load_bit("1")
+    # hc595.load_bit("0")
+    # hc595.load_bit("1")
+    # hc595.load_bit("0")
+    # hc595.load_bit("1")
+    #
+    # hc595.latch()
+    # #time.sleep(5)
+    # hc595.load_bit("1")
+    # hc595.load_bit("0")
+    # hc595.load_bit("1")
+    # hc595.load_bit("0")
+    # hc595.load_bit("1")
+    # hc595.load_bit("0")
+    # hc595.load_bit("1")
+    # hc595.load_bit("0")
+    #
+    # hc595.latch()
+    #
 
-    hc595.load_bit("0")
-    hc595.load_bit("1")
-    hc595.load_bit("0")
-    hc595.load_bit("1")
-    hc595.load_bit("0")
-    hc595.load_bit("1")
-    hc595.load_bit("0")
-    hc595.load_bit("1")
-
-    hc595.latch()
-    #time.sleep(5)
-    hc595.load_bit("1")
-    hc595.load_bit("0")
-    hc595.load_bit("1")
-    hc595.load_bit("0")
-    hc595.load_bit("1")
-    hc595.load_bit("0")
-    hc595.load_bit("1")
-    hc595.load_bit("0")
-
-    hc595.latch()
 
 
 if __name__ == '__main__':
