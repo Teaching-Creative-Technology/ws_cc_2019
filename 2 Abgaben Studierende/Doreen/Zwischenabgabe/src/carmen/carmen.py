@@ -2,16 +2,18 @@
 import word_processor
 import randomizer
 import ascii
+import printer
 
 class Carmen():
     def __init__(self):
         self.wordprocessor = word_processor.WordProcessor(5)
         self.randomizer = randomizer.Randomizer(5)
-        self.ascii = ascii.Ascii("shadow")
+        self.ascii = ascii.Ascii("big")
+        self.printer = printer.Printer()
 
     def go(self):
         found_words = 0
-        while found_words <10:
+        while found_words <2:
             random_string = self.randomizer.create_random_string()
             print(random_string)
 
@@ -21,7 +23,8 @@ class Carmen():
                 print("Found something")
                 for my_word in my_words:
                     ascii_text = self.ascii.create_ascii_text(my_word)
-                    print(ascii_text)
+                    self.printer.print_text(ascii_text)
+                    #print(ascii_text)
                 found_words +=1
         # process words, display etc..
         print("Bye Bye....")
