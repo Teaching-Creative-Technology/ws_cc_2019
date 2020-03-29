@@ -3,6 +3,7 @@ import time
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
+SLEEP_TIME = 0.001
 # This class sets up and controls the HC595 components
 class HC595():
     def __init__(self, serial_in, latch_clock, shift_clock, output_enable, reset):
@@ -24,9 +25,9 @@ class HC595():
 
     def reset(self):
         GPIO.output(self._reset, GPIO.LOW)
-        time.sleep(0.1)
+        time.sleep(SLEEP_TIME)
         GPIO.output(self._reset, GPIO.HIGH)
-        time.sleep(0.1)
+        time.sleep(SLEEP_TIME)
         self.latch()
 
 
@@ -39,16 +40,16 @@ class HC595():
     def shift(self):
 
         GPIO.output(self._shift_clock, GPIO.HIGH)
-        time.sleep(0.1)
+        time.sleep(SLEEP_TIME)
         GPIO.output(self._shift_clock, GPIO.LOW)
-        time.sleep(0.1)
+        time.sleep(SLEEP_TIME)
 
     def latch(self):
 
         GPIO.output(self._latch_clock, GPIO.HIGH)
-        time.sleep(0.1)
+        time.sleep(SLEEP_TIME)
         GPIO.output(self._latch_clock, GPIO.LOW)
-        time.sleep(0.1)
+        time.sleep(SLEEP_TIME)
 
 
     def load_bit(self, bit):
@@ -124,11 +125,11 @@ class ShiftRegister():
     # Function that creates a string of the sequence of bits that resemble the physical shift register
     def map_logical_register_to_physical_bits(self):
         self.physical_register = "" .join(self.logical_register)
-        print(self.physical_register)
+        #print(self.physical_register)
 
     # Function to reverse the phsyical bits, so they can be loaded into the shift register
     def load_physical_bits_into_shift_register(self):
-        print("".join(reversed(self.physical_register)))
+        #print("".join(reversed(self.physical_register)))
         for bit in reversed(self.physical_register):
             self.hc595.load_bit(bit)
 
@@ -137,43 +138,12 @@ class ShiftRegister():
         self.map_logical_register_to_physical_bits()
         self.load_physical_bits_into_shift_register()
         self.hc595.latch()
-        time.sleep(10)
-        self.hc595.reset()
 
 def main():
-    shift_reg = ShiftRegister(serial_in=5, latch_clock=6, shift_clock=13, output_enable=19, reset=26, length = 32)
-    shift_reg.set_logical_position_to_value(0, "blue")
-    shift_reg.set_logical_position_to_value(1, "white")
-    shift_reg.set_logical_position_to_value(2, "off")
-    shift_reg.set_logical_position_to_value(3, "blue")
+    shift_reg = ShiftRegister(serial_in=5, latch_clock=6, shift_clock=13, output_enable=19, reset=26, length = 120)
 
+    shift_reg.set_logical_position_to_value(19, "off")
     shift_reg.load_logical_values_into_shift_register()
-
-
-    #
-    # hc595.load_bit("0")
-    # hc595.load_bit("1")
-    # hc595.load_bit("0")
-    # hc595.load_bit("1")
-    # hc595.load_bit("0")
-    # hc595.load_bit("1")
-    # hc595.load_bit("0")
-    # hc595.load_bit("1")
-    #
-    # hc595.latch()
-    # #time.sleep(5)
-    # hc595.load_bit("1")
-    # hc595.load_bit("0")
-    # hc595.load_bit("1")
-    # hc595.load_bit("0")
-    # hc595.load_bit("1")
-    # hc595.load_bit("0")
-    # hc595.load_bit("1")
-    # hc595.load_bit("0")
-    #
-    # hc595.latch()
-    #
-
 
 
 if __name__ == '__main__':

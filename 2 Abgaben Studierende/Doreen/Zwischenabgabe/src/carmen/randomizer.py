@@ -1,6 +1,9 @@
 import string
 import random
 
+# Class that creates a random set of characters from the alphabet
+# with a specific length
+
 class Randomizer():
     def __init__(self, length):
         self.alphabet = list(string.ascii_lowercase)

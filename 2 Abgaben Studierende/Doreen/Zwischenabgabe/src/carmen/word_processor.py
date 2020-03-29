@@ -4,7 +4,7 @@ class WordProcessor():
     """
     This class generates a list of all possible n-character words
     Algorithm:
-        * select all words of length n from an Englisch dictionary
+        * select all words of length n from an English dictionary
         * process all words and generate an index consisting of all letters in the word
         * group the words by the index
 
