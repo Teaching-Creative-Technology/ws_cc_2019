@@ -1,7 +1,9 @@
 import subprocess
 import ascii
 
+
 class Printer():
+
 
     def print_text(self, printtext):
         # input text is encoded with utf-8 to make it readable for the printer
@@ -12,5 +14,6 @@ class Printer():
             temp_printfile.write(ascii_printtext)
 
         # call lp to print file
-        subprocess.call(["/usr/bin/lp /tmp/prt_output.txt"],shell=True)
+        subprocess.check_call(["/usr/bin/lp /tmp/prt_output.txt"],shell=True)
+
 

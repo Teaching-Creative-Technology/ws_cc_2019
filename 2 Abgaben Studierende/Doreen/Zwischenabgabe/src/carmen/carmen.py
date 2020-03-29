@@ -22,19 +22,19 @@ class Carmen():
             word_display = WordDisplay()
             word_display.setup_logical_position_register(random_string)
             word_display.highlight_logical_positions("white")
-            time.sleep(1)
+            time.sleep(0.5)
             my_words = self.wordprocessor.find_words_from_characters(random_string)
 
 
             if my_words:
                 print("Found matching word {0}".format(my_words[0]))
                 word_display.highlight_logical_positions("blue")
-                time.sleep(5)
+                time.sleep(16)
 
-                #for my_word in my_words:
-                #   ascii_text = self.ascii.create_ascii_text(my_word)
-                #  self.printer.print_text(ascii_text)
-                #print(ascii_text)
+                for my_word in my_words:
+                    ascii_text = self.ascii.create_ascii_text(my_word)
+                    self.printer.print_text(ascii_text)
+                    print(ascii_text)
                 found_words +=1
 
             #time.sleep(5)

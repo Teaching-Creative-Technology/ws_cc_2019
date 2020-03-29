@@ -17,10 +17,15 @@ class WordProcessor():
         self.word_length = word_length
         self.character_to_word_map = dict()
         self.create_n_character_word_list(word_length)
+        print(self.n_character_word_list)
         self.sort_words_into_index()
 
     def create_n_character_word_list(self, n):
-        word_list = words.words()
+        my_dict = list()
+        with open('word_list_german_uppercase_spell_checked.txt', 'r') as my_dict_file:
+            word_list = my_dict_file.read().splitlines()
+
+        #word_list = words.words()
         for word in word_list:
             if len(word) == n:
                 self.n_character_word_list.append(word)

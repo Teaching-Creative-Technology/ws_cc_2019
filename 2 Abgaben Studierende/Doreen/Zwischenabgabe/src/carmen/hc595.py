@@ -71,7 +71,7 @@ class ShiftRegister():
         self.hc595 = HC595(serial_in, latch_clock, shift_clock, output_enable, reset)
         self.length = length
         self.hc595.reset()
-        self.logical_register = ["00" for item in range(length/2)]
+        self.logical_register = ["00" for item in range(length//2)]
         self.physical_register = ""
 
 
