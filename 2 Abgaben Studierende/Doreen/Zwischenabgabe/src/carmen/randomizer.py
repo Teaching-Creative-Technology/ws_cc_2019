@@ -11,9 +11,14 @@ class Randomizer():
         self.alphabet = list(string.ascii_lowercase)
         self.length = length
         self.character_list = self.create_character_list()
+        random.seed(4208154711)
     def create_random_string(self):
         random_characters = random.sample(self.alphabet, self.length)
         #random_characters = random.sample(self.character_list, self.length)
+        #random_characters = random.choices(self.alphabet, self.length)
+        #random_characters = random.choices(population=self.alphabet,k=self.length)
+        #random_characters = random.choices(population=self.alphabet,k=self.length)
+
         return random_characters
 
 

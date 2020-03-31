@@ -11,8 +11,8 @@ class Printer():
 
         # a temporary file is created to print the input
         with open("/tmp/prt_output.txt", 'w') as temp_printfile:
-            temp_printfile.write(ascii_printtext)
-
+            #temp_printfile.write(ascii_printtext)
+            temp_printfile.write(ascii_printtext.decode('utf-8'))
         # call lp to print file
         subprocess.check_call(["/usr/bin/lp /tmp/prt_output.txt"],shell=True)
 
