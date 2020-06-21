@@ -4,7 +4,6 @@ import randomizer
 import ascii
 import printer
 import introduction
-import hc595
 from word_display import WordDisplay
 import time
 
