@@ -4,11 +4,12 @@ class WordProcessor():
     """
     This class generates a list of all possible n-character words
     Algorithm:
-        * select all words of length n from an English dictionary
-        * process all words and generate an index consisting of all letters in the word
-        * group the words by the index
+        * select all words of length n from an German dictionary
+        * process all words and generate an sorted index consisting of all letters in the word
+        * group the words by the index and store them in a dict()
 
-    Now all words that can be build from a collection of characters can easily be detected
+    Now all words that can be build from a collection of characters can easily be found by
+    accessing the generated index
 
 
     """
@@ -17,10 +18,11 @@ class WordProcessor():
         self.word_length = word_length
         self.character_to_word_map = dict()
         self.create_n_character_word_list(word_length)
-        print(self.n_character_word_list)
         self.sort_words_into_index()
 
     def create_n_character_word_list(self, n):
+        "Extract all n character words from the German dictionary"
+
         my_dict = list()
         with open('word_list_german_uppercase_spell_checked.txt', 'r') as my_dict_file:
             word_list = my_dict_file.read().splitlines()

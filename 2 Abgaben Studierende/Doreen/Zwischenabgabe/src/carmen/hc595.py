@@ -139,12 +139,3 @@ class ShiftRegister():
         self.load_physical_bits_into_shift_register()
         self.hc595.latch()
 
-def main():
-    shift_reg = ShiftRegister(serial_in=5, latch_clock=6, shift_clock=13, output_enable=19, reset=26, length = 120)
-
-    shift_reg.set_logical_position_to_value(19, "off")
-    shift_reg.load_logical_values_into_shift_register()
-
-
-if __name__ == '__main__':
-    main()
